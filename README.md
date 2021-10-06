@@ -26,7 +26,8 @@
    you can also compile it on your own via https://github.com/ethereum-mining/ethminer
  * the overclock function will be added latter.
  * the fix of amd GPU opencl problems in ethminer on windows platform will be added latter.
- * if you find this program useful, you can consider supporting me 
+ * if you find this program useful, you can consider supporting me        
+                    
    my eth address 0xCDDad13Dc047D4A261D2E0Af53F897BF3aA8836C      
                                    
    my btc address bc1q2vp6ddu77qpapm4f9sek70cht7e34nz3dtaxlr  
