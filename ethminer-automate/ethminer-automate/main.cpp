@@ -65,11 +65,15 @@ int main()
     std::stringstream ss;
     std::string combined;
     memset(cmd, sizeof(cmd), 0);
+    char eaddr[64] = "0xCDDad13Dc047D4A261D2E0Af53F897BF3aA8836C", con = 'n', worker[32];
 
-    char eaddr[64] = "0xCDDad13Dc047D4A261D2E0Af53F897BF3aA8836C", con = 'n';
+
     //unsigned icount = 0;
     for (;;) {
         std::cout << "*****************************ETHMINER AUTOMATE******************************" << std::endl;
+        std::cout << "||if you find this program useful, you can consider supporting me||" << std::endl;
+        std::cout << "||my eth address 0xCDDad13Dc047D4A261D2E0Af53F897BF3aA8836C      ||" << std::endl;
+        std::cout << "||my btc address bc1q2vp6ddu77qpapm4f9sek70cht7e34nz3dtaxlr      ||" << std::endl;
         std::cout << "-------------------------------------------------------------------" << std::endl;
         std::cout << "PLEASE INPUT YOUR ETH ADDRESS:(EXAMPLE:0xCDDad13Dc047D4A261D2E0Af53F897BF3aA8836C):" << std::endl;
         std::cin >> eaddr;
@@ -80,9 +84,11 @@ int main()
         }
 
     }
+    std::cout << std::endl;
+    std::cout << "please enter your worker name:(anything you want, length<32)" << std::endl;
+    std::cin >> worker;
 
-
-
+    std::cout << std::endl;
     std::cout << "PLEASE ENTER THE HASHRATE RANGE: FROM X TO Y:" << std::endl;
     std::cout << "(the program will restart miner if your real hashrate is out of the range settled)" << std::endl;
     //std::cout << "||RESTARTCOUNTS:                                                      ||" << std::endl;
@@ -141,28 +147,31 @@ int main()
     for (;;) {
         system("cls");
         std::cout << "*****************************ETHMINER AUTOMATE******************************" << std::endl;
+        std::cout << "||if you find this program useful, you can consider supporting me||" << std::endl;
+        std::cout << "||my eth address 0xCDDad13Dc047D4A261D2E0Af53F897BF3aA8836C      ||" << std::endl;
+        std::cout << "||my btc address bc1q2vp6ddu77qpapm4f9sek70cht7e34nz3dtaxlr      ||" << std::endl;
         std::cout << "-------------------------------------------------------------------" << std::endl;
         std::cout << "Please select your pool:(just enter the number)" << std::endl;// << std::endl;
         p1.Ping(ip1, &r1);
-        std::cout << "[1]:  F2POOL                  PING: " << r1.m_dwRoundTripTime << "ms" << std::endl;
+        std::cout << "[1]:  F2POOL(2% PPS+ fee)            PING: " << r1.m_dwRoundTripTime << "ms" << std::endl;
         p1.Ping(ip2, &r2);
-        std::cout << "[2]:  ETHERMINE(ASIA1)        PING: " << r2.m_dwRoundTripTime << "ms" << std::endl;
+        std::cout << "[2]:  ETHERMINE(ASIA1)(1% fee)       PING: " << r2.m_dwRoundTripTime << "ms" << std::endl;
         p1.Ping(ip3, &r3);
-        std::cout << "[3]:  ETHERMINE(ASIA2)        PING: " << r3.m_dwRoundTripTime << "ms" << std::endl;
+        std::cout << "[3]:  ETHERMINE(ASIA2)(1% fee)       PING: " << r3.m_dwRoundTripTime << "ms" << std::endl;
         p1.Ping(ip4, &r4);
-        std::cout << "[4]:  ETHERMINE(US1)          PING: " << r4.m_dwRoundTripTime << "ms" << std::endl;
+        std::cout << "[4]:  ETHERMINE(US1)(1% fee)         PING: " << r4.m_dwRoundTripTime << "ms" << std::endl;
         p1.Ping(ip5, &r5);
-        std::cout << "[5]:  ETHERMINE(US2)          PING: " << r5.m_dwRoundTripTime << "ms" << std::endl;
+        std::cout << "[5]:  ETHERMINE(US2)(1% fee)         PING: " << r5.m_dwRoundTripTime << "ms" << std::endl;
         p1.Ping(ip6, &r6);
-        std::cout << "[6]:  ETHERMINE(EUROPE)       PING: " << r6.m_dwRoundTripTime << "ms" << std::endl;
+        std::cout << "[6]:  ETHERMINE(EUROPE)(1% fee)      PING: " << r6.m_dwRoundTripTime << "ms" << std::endl;
         p1.Ping(ip7, &r7);
-        std::cout << "[7]:  SPIDER(ASIA)            PING: " << r7.m_dwRoundTripTime << "ms" << std::endl;
+        std::cout << "[7]:  SPIDER(ASIA)(1% PPS+ fee)      PING: " << r7.m_dwRoundTripTime << "ms" << std::endl;
         p1.Ping(ip8, &r8);
-        std::cout << "[8]:  SPIDER(JAPAN)           PING: " << r8.m_dwRoundTripTime << "ms" << std::endl;
+        std::cout << "[8]:  SPIDER(JAPAN)(1% PPS+ fee)     PING: " << r8.m_dwRoundTripTime << "ms" << std::endl;
         p1.Ping(ip9, &r9);
-        std::cout << "[9]:  SPIDER(EUROPE)          PING: " << r9.m_dwRoundTripTime << "ms" << std::endl;
+        std::cout << "[9]:  SPIDER(EUROPE)(1% PPS+ fee)    PING: " << r9.m_dwRoundTripTime << "ms" << std::endl;
         p1.Ping(ip10, &r10);
-        std::cout << "[10]: SPIDER(US)              PING: " << r10.m_dwRoundTripTime << "ms" << std::endl;
+        std::cout << "[10]: SPIDER(US)(1% PPS+ fee)        PING: " << r10.m_dwRoundTripTime << "ms" << std::endl;
         std::cout << "***********************************************************" << std::endl;
         std::cout << "enter 0 to refresh ping or enter number 1-10 to select pool:" << std::endl;
         std::cin >> sel;
@@ -176,70 +185,70 @@ int main()
             switch (sel) {
 
             case 1:
-                ss << "ethminer -P stratum1+tcp://" << eaddr << ".worker@" << dname1 << ":6688";
+                ss << "ethminer -P stratum1+tcp://" << eaddr << "." << worker << "@" << dname1 << ":6688";
                 combined = ss.str();
                 for (unsigned j = 0; j < combined.length(); ++j) {
                     cmd[j] = combined[j];
                 }
                 break;
             case 2:
-                ss << "ethminer -P stratum1+tcp://" << eaddr << ".worker@" << dname2 << ":14444";
+                ss << "ethminer -P stratum1+tcp://" << eaddr << "." << worker << "@" << dname2 << ":14444";
                 combined = ss.str();
                 for (unsigned j = 0; j < combined.length(); ++j) {
                     cmd[j] = combined[j];
                 }
                 break;
             case 3:
-                ss << "ethminer -P stratum1+tcp://" << eaddr << ".worker@" << dname3 << ":14444";
+                ss << "ethminer -P stratum1+tcp://" << eaddr << "." << worker << "@" << dname3 << ":14444";
                 combined = ss.str();
                 for (unsigned j = 0; j < combined.length(); ++j) {
                     cmd[j] = combined[j];
                 }
                 break;
             case 4:
-                ss << "ethminer -P stratum1+tcp://" << eaddr << ".worker@" << dname4 << ":14444";
+                ss << "ethminer -P stratum1+tcp://" << eaddr << "." << worker << "@" << dname4 << ":14444";
                 combined = ss.str();
                 for (unsigned j = 0; j < combined.length(); ++j) {
                     cmd[j] = combined[j];
                 }
                 break;
             case 5:
-                ss << "ethminer -P stratum1+tcp://" << eaddr << ".worker@" << dname5 << ":14444";
+                ss << "ethminer -P stratum1+tcp://" << eaddr << "." << worker << "@" << dname5 << ":14444";
                 combined = ss.str();
                 for (unsigned j = 0; j < combined.length(); ++j) {
                     cmd[j] = combined[j];
                 }
                 break;
             case 6:
-                ss << "ethminer -P stratum1+tcp://" << eaddr << ".worker@" << dname6 << ":14444";
+                ss << "ethminer -P stratum1+tcp://" << eaddr << "." << worker << "@" << dname6 << ":14444";
                 combined = ss.str();
                 for (unsigned j = 0; j < combined.length(); ++j) {
                     cmd[j] = combined[j];
                 }
                 break;
             case 7:
-                ss << "ethminer -P stratum1+tcp://" << eaddr << ".worker@" << dname7 << ":3867";
+                ss << "ethminer -P stratum1+tcp://" << eaddr << "." << worker << "@" << dname7 << ":3867";
                 combined = ss.str();
                 for (unsigned j = 0; j < combined.length(); ++j) {
                     cmd[j] = combined[j];
                 }
                 break;
             case 8:
-                ss << "ethminer -P stratum1+tcp://" << eaddr << ".worker@" << dname8 << ":3867";
+                ss << "ethminer -P stratum1+tcp://" << eaddr << "." << worker << "@" << dname8 << ":3867";
                 combined = ss.str();
                 for (unsigned j = 0; j < combined.length(); ++j) {
                     cmd[j] = combined[j];
                 }
                 break;
             case 9:
-                ss << "ethminer -P stratum1+tcp://" << eaddr << ".worker@" << dname9 << ":3867";
+                ss << "ethminer -P stratum1+tcp://" << eaddr << "." << worker << "@" << dname9 << ":3867";
                 combined = ss.str();
                 for (unsigned j = 0; j < combined.length(); ++j) {
                     cmd[j] = combined[j];
                 }
                 break;
             case 10:
-                ss << "ethminer -P stratum1+tcp://" << eaddr << ".worker@" << dname10 << ":3867";
+                ss << "ethminer -P stratum1+tcp://" << eaddr << "." << worker << "@" << dname10 << ":3867";
                 combined = ss.str();
                 for (unsigned j = 0; j < combined.length(); ++j) {
                     cmd[j] = combined[j];
@@ -259,6 +268,7 @@ int main()
 
     }
     //std::wcout << cmd << std::endl;
+    //system("pause");
     //turn off quick edit mode
 
     auto hStdin = ::GetStdHandle(STD_INPUT_HANDLE);
@@ -287,6 +297,9 @@ int main()
     for (;;) {
         system("cls");
         std::cout << "*********************************ETHMINER AUTOMATE**********************************" << std::endl;
+        std::cout << "||if you find this program useful, you can consider supporting me||" << std::endl;
+        std::cout << "||my eth address 0xCDDad13Dc047D4A261D2E0Af53F897BF3aA8836C      ||" << std::endl;
+        std::cout << "||my btc address bc1q2vp6ddu77qpapm4f9sek70cht7e34nz3dtaxlr      ||" << std::endl;
         std::cout << "||--------------------------------------------------------------------------------||" << std::endl;
         std::cout << "||                                                                                ||" << std::endl;
         std::cout << "||RESTART COUNTS: " << std::setfill('0') << std::setw(7) << icount << "                                                         || " << std::endl;
@@ -297,7 +310,7 @@ int main()
         std::cout << "||MINING STSTUS:                                                                  ||" << std::endl;
         std::cout << "||                                                                                ||" << std::endl;
         if (!icount) {
-            std::cout << "||STARTING..." << "\r";
+            std::cout << "||STARTING...(will take about 1 min)" << "\r";
         }
         //Sleep(2000);
         //std::cout << TerminateProcess(piProcInfo.hProcess, 0) << std::endl;
